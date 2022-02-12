@@ -1,5 +1,36 @@
+import axios from "axios";
+
 const Tabs = (topics) => {
-  
+  const tabWrapper = document.createElement('div');
+  // const tab1 = document.createElement('div');
+  // const tab2 = document.createElement('div');
+  // const tab3 = document.createElement('div');
+
+  tabWrapper.classList.add('topics');
+  // tab1.classList.add('tab');
+  // tab2.classList.add('tab');
+  // tab3.classList.add('tab');
+
+  topics.forEach(tabText => {
+    const tab = document.createElement('div');
+    tab.classList.add('tab');
+    tabWrapper.appendChild(tab);
+    tab.textContent = tabText;
+  })
+
+  // tabWrapper.appendChild(tab1);
+  // tabWrapper.appendChild(tab2);
+  // tabWrapper.appendChild(tab3);
+
+  // tab1.textContent = topics[0];
+  // tab2.textContent = topics[1];
+  // tab3.textContent = topics[2];
+
+
+  return tabWrapper;
+
+
+
   // TASK 3
   // ---------------------
   // Implement this function which takes an array of strings ("topics") as its only argument.
@@ -17,6 +48,13 @@ const Tabs = (topics) => {
 }
 
 const tabsAppender = (selector) => {
+   axios.get(`http://localhost:5000/api/topics`)
+      .then(res => {
+        document.querySelector(selector).appendChild(Tabs(res.data.topics));
+      })
+      .catch(err => console.log(err));
+    // document.querySelector(selector).appendChild(tabWrapper);
+    // console.log(topics)
   // TASK 4
   // ---------------------
   // Implement this function which takes a css selector as its only argument.
